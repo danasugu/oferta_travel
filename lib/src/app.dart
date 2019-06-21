@@ -14,15 +14,15 @@ class AppState extends State<App> {
     return MaterialApp (
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        body: Text('$counter'),
         floatingActionButton: FloatingActionButton(backgroundColor: Colors.amber,
             child: Icon(Icons.flight_takeoff, color: Colors.yellow, size: 33.0,),
             elevation: 12.0,
             focusColor: Colors.purple,hoverColor:
             Colors.purpleAccent,
             onPressed: () {
-          counter += 1;
           setState(() {
-
+            counter += 1;
           });
             }),
         bottomNavigationBar: BottomAppBar(
