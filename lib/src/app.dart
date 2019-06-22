@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show get;
+import 'models/oferte_model.dart';
+import 'dart:convert';
+import 'widgets/oferta_list.dart';
 
 class App extends StatefulWidget {
   @override
@@ -10,11 +13,17 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
   int counter = 0;
+  List<OferteModel> oferta = [];
 
-  void fetchOferta() {
+  void fetchOferta() async {
 
     counter ++;
-    get('https://jsonplaceholder.typicode.com/photos/$counter');
+    var response = await get('https://jsonplaceholder.typicode.com/photos/$counter');
+    var oferteModel = OferteModel.fromJson(json.decode(response.body));
+
+    setState(() {
+      oferta.add(oferteModel);
+    });
 
   }
 
@@ -22,7 +31,7 @@ class AppState extends State<App> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Text('$counter'),
+        body: OferteList(oferta),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.amber,
             child: Icon(
